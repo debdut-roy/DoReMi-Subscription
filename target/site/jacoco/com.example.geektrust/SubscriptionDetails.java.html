@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SubscriptionDetails.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">geektrust</a> &gt; <a href="index.source.html" class="el_package">com.example.geektrust</a> &gt; <span class="el_source">SubscriptionDetails.java</span></div><h1>SubscriptionDetails.java</h1><pre class="source lang-java linenums">package com.example.geektrust;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class SubscriptionDetails {
+
+	private List&lt;Subscription&gt; subscriptions;
+	private LocalDate subscriptionStartDate;
+	private Long renewalCost;
+	private Long topupCharge;
+	private boolean validSubscriptionStartDate;
+	private final Map&lt;String, Map&lt;String, List&lt;Integer&gt;&gt;&gt; subscriptionData;
+	
+	
+<span class="fc" id="L21">	public SubscriptionDetails() {</span>
+<span class="fc" id="L22">		Map&lt;String, List&lt;Integer&gt;&gt; musicSubscriptionDetails = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L23">		musicSubscriptionDetails.put(&quot;FREE&quot;, List.of(0,1));</span>
+<span class="fc" id="L24">		musicSubscriptionDetails.put(&quot;PERSONAL&quot;, List.of(100,1));</span>
+<span class="fc" id="L25">		musicSubscriptionDetails.put(&quot;PREMIUM&quot;, List.of(250,3));</span>
+		
+<span class="fc" id="L27">		Map&lt;String, List&lt;Integer&gt;&gt; videoSubscriptionDetails = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L28">		videoSubscriptionDetails.put(&quot;FREE&quot;, List.of(0,1));</span>
+<span class="fc" id="L29">		videoSubscriptionDetails.put(&quot;PERSONAL&quot;, List.of(200,1));</span>
+<span class="fc" id="L30">		videoSubscriptionDetails.put(&quot;PREMIUM&quot;, List.of(500,3));</span>
+		
+<span class="fc" id="L32">		Map&lt;String, List&lt;Integer&gt;&gt; podcastSubscriptionDetails = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L33">		podcastSubscriptionDetails.put(&quot;FREE&quot;, List.of(0,1));</span>
+<span class="fc" id="L34">		podcastSubscriptionDetails.put(&quot;PERSONAL&quot;, List.of(100,1));</span>
+<span class="fc" id="L35">		podcastSubscriptionDetails.put(&quot;PREMIUM&quot;, List.of(300,3));</span>
+		
+<span class="fc" id="L37">		subscriptionData = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L38">		this.subscriptionData.put(&quot;MUSIC&quot;, musicSubscriptionDetails);</span>
+<span class="fc" id="L39">		this.subscriptionData.put(&quot;VIDEO&quot;, videoSubscriptionDetails);</span>
+<span class="fc" id="L40">		this.subscriptionData.put(&quot;PODCAST&quot;, podcastSubscriptionDetails);</span>
+		
+<span class="fc" id="L42">		this.subscriptions = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L43">		this.renewalCost = 0L;</span>
+<span class="fc" id="L44">		this.topupCharge = 0L;</span>
+<span class="fc" id="L45">	}</span>
+	public LocalDate getSubscriptionStartTime() {
+<span class="fc" id="L47">		return subscriptionStartDate;</span>
+	}
+	public void setSubscriptionStartTime(LocalDate subscriptionStartDate) {
+<span class="fc" id="L50">		this.subscriptionStartDate = subscriptionStartDate;</span>
+<span class="fc" id="L51">	}</span>
+	public List&lt;Subscription&gt; getSubscriptions() {
+<span class="fc" id="L53">		return subscriptions;</span>
+	}
+	public void setSubscriptions(List&lt;Subscription&gt; subscriptions) {
+<span class="nc" id="L56">		this.subscriptions = subscriptions;</span>
+<span class="nc" id="L57">	}</span>
+	
+	public Long getRenewalCost() {
+<span class="nc" id="L60">		return renewalCost;</span>
+	}
+	public void setRenewalCost(Long renewalCost) {
+<span class="nc" id="L63">		this.renewalCost = renewalCost;</span>
+<span class="nc" id="L64">	}</span>
+	public Long getTopupCharge() {
+<span class="fc" id="L66">		return topupCharge;</span>
+	}
+	public void setTopupCharge(Long topupCharge) {
+<span class="nc" id="L69">		this.topupCharge = topupCharge;</span>
+<span class="nc" id="L70">	}</span>
+	
+	public boolean validateSubscriptionStartDate(String date) {
+<span class="fc" id="L73">		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(&quot;dd-MM-yyyy&quot;);</span>
+		try {
+<span class="fc" id="L75">			this.subscriptionStartDate = LocalDate.parse(date, formatter);</span>
+<span class="fc" id="L76">			this.validSubscriptionStartDate = true;</span>
+<span class="fc" id="L77">			return this.validSubscriptionStartDate;</span>
+		}
+<span class="fc" id="L79">		catch(DateTimeParseException e) {</span>
+<span class="fc" id="L80">			System.out.println(&quot;INVALID_DATE&quot;);</span>
+<span class="fc" id="L81">        	return this.validSubscriptionStartDate;</span>
+		}
+	}
+	
+	public void addSubscription(String subscriptionName, String subscriptionType) throws SubscriptionException{
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">		if(!this.validSubscriptionStartDate) {</span>
+<span class="nc" id="L87">			throw new SubscriptionException(&quot;ADD_SUBSCRIPTION_FAILED INVALID_DATE&quot;);</span>
+		}
+<span class="fc" id="L89">		Subscription subscription = new Subscription();</span>
+<span class="fc" id="L90">		subscription.setSubscriptionName(subscriptionName);</span>
+<span class="fc" id="L91">		subscription.setSubscriptionType(subscriptionType);</span>
+		
+<span class="fc bfc" id="L93" title="All 2 branches covered.">		if(this.subscriptions.contains(subscription)) {</span>
+<span class="fc" id="L94">			throw new SubscriptionException(&quot;ADD_SUBSCRIPTION_FAILED DUPLICATE_CATEGORY&quot;);</span>
+		}
+<span class="fc" id="L96">		calculateRenewalCost(subscription);</span>
+<span class="fc" id="L97">		Subscription renewedSubscription = calculateExpiryDate(subscription);</span>
+<span class="fc" id="L98">		this.subscriptions.add(renewedSubscription);</span>
+		
+<span class="fc" id="L100">	}</span>
+	
+	public Long calculateRenewalCost(Subscription sub) {
+<span class="fc" id="L103">		this.renewalCost += subscriptionData.get(sub.getSubscriptionName()).get(sub.getSubscriptionType()).get(0);</span>
+<span class="fc" id="L104">		return this.renewalCost;</span>
+	}
+	
+	public Subscription calculateExpiryDate(Subscription sub) {
+<span class="fc" id="L108">		int renewalTime = subscriptionData.get(sub.getSubscriptionName()).get(sub.getSubscriptionType()).get(1);</span>
+<span class="fc" id="L109">		sub.setExpiryDate(this.getSubscriptionStartTime().plusMonths(renewalTime));</span>
+<span class="fc" id="L110">		return sub;</span>
+	}
+	
+	public void calculateTopupCharge(String topup, String number) throws SubscriptionException {
+<span class="fc" id="L114">		int topupCharge = 0, num=0;</span>
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">		if(!this.validSubscriptionStartDate) {</span>
+<span class="nc" id="L116">			throw new SubscriptionException(&quot;ADD_TOPUP_FAILED INVALID_DATE&quot;);</span>
+		}
+<span class="fc bfc" id="L118" title="All 2 branches covered.">		if(this.topupCharge &gt; 0) {</span>
+<span class="fc" id="L119">			throw new SubscriptionException(&quot;ADD_TOPUP_FAILED DUPLICATE_TOPUP&quot;);</span>
+		}
+<span class="fc" id="L121">		num = Integer.parseInt(number);</span>
+<span class="fc bfc" id="L122" title="All 2 branches covered.">		if(topup.equals(&quot;FOUR_DEVICE&quot;)) {</span>
+<span class="fc" id="L123">			topupCharge = 50;</span>
+		}
+<span class="pc bpc" id="L125" title="1 of 2 branches missed.">		else if(topup.equals(&quot;TEN_DEVICE&quot;)) {</span>
+<span class="fc" id="L126">			topupCharge = 100;</span>
+		}
+<span class="fc" id="L128">		this.topupCharge = (long) (topupCharge*num);</span>
+		
+<span class="fc" id="L130">	}</span>
+	
+	public void printRenewalDetails() throws SubscriptionException {
+<span class="nc bnc" id="L133" title="All 4 branches missed.">		if(this.getSubscriptions() == null || this.getSubscriptions().size() == 0) {</span>
+<span class="nc" id="L134">			throw new SubscriptionException(&quot;SUBSCRIPTIONS_NOT_FOUND&quot;);</span>
+		}
+<span class="nc" id="L136">		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(&quot;dd-MM-yyyy&quot;);</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">		for(Subscription sub : this.getSubscriptions()) {</span>
+<span class="nc" id="L138">    		LocalDate renewalReminder = sub.getExpiryDate().minusDays(10);</span>
+<span class="nc" id="L139">			System.out.println(&quot;RENEWAL_REMINDER &quot;+sub.getSubscriptionName()+&quot; &quot;+renewalReminder.format(formatter));</span>
+<span class="nc" id="L140">    	}</span>
+<span class="nc" id="L141">		renewalCost = this.getRenewalCost();</span>
+<span class="nc" id="L142">		renewalCost += topupCharge;</span>
+<span class="nc" id="L143">    	System.out.println(&quot;RENEWAL_AMOUNT &quot;+renewalCost);</span>
+		
+<span class="nc" id="L145">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

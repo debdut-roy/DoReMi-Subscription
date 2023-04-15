@@ -1,0 +1,5 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+geektrust,com.example.geektrust,Main,89,0,7,0,28,0,7,0,2,0
+geektrust,com.example.geektrust,SubscriptionException,0,4,0,0,0,2,0,1,0,1
+geektrust,com.example.geektrust,Subscription,38,42,2,4,5,15,5,8,3,7
+geektrust,com.example.geektrust,SubscriptionDetails,100,294,9,9,20,59,11,13,5,10

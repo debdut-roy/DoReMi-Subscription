@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">geektrust</a> &gt; <a href="index.source.html" class="el_package">com.example.geektrust</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">package com.example.geektrust;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Scanner;
+
+
+<span class="nc" id="L8">public class Main {</span>
+	
+    public static void main(String[] args) {
+        
+    	//Sample code to read from file passed as command line argument
+<span class="nc" id="L13">    	Scanner sc=null;</span>
+<span class="nc" id="L14">    	FileInputStream fis=null;</span>
+        try {
+            // the file to be opened for reading
+<span class="nc" id="L17">            fis = new FileInputStream(args[0]);</span>
+<span class="nc" id="L18">            sc = new Scanner(fis); // file to be scanned</span>
+<span class="nc" id="L19">            SubscriptionDetails subscriptionDetails = new SubscriptionDetails();</span>
+            // returns true if there is another line to read
+<span class="nc bnc" id="L21" title="All 2 branches missed.">            while (sc.hasNextLine()) {</span>
+                //Add your code here to process input commands
+<span class="nc" id="L23">            	String[] line = sc.nextLine().split(&quot; &quot;);</span>
+            	try {
+<span class="nc bnc" id="L25" title="All 5 branches missed.">            		switch(line[0]) {</span>
+	            		case &quot;START_SUBSCRIPTION&quot;: 
+<span class="nc" id="L27">	            			subscriptionDetails.validateSubscriptionStartDate(line[1]);</span>
+<span class="nc" id="L28">	            			break;</span>
+	            			
+	            		case &quot;ADD_SUBSCRIPTION&quot;:
+<span class="nc" id="L31">	            			subscriptionDetails.addSubscription(line[1], line[2]);</span>
+<span class="nc" id="L32">	            			break;</span>
+	            			
+	            		case &quot;ADD_TOPUP&quot;:
+<span class="nc" id="L35">	            			subscriptionDetails.calculateTopupCharge(line[1], line[2]);</span>
+<span class="nc" id="L36">	            			break;</span>
+	            			
+	            		case &quot;PRINT_RENEWAL_DETAILS&quot;:
+<span class="nc" id="L39">	            			subscriptionDetails.printRenewalDetails();</span>
+	            			break;
+	            		
+	            	}
+            	}
+<span class="nc" id="L44">            	catch (SubscriptionException e) {</span>
+<span class="nc" id="L45">            		System.out.println(e.getMessage());</span>
+<span class="nc" id="L46">				}</span>
+<span class="nc" id="L47">            }</span>
+        }
+<span class="nc" id="L49">        catch(Exception e) {</span>
+<span class="nc" id="L50">        	System.out.println(e.getMessage());</span>
+        }
+        finally {
+<span class="nc" id="L53">        	sc.close(); // closes the scanner</span>
+        	try {
+<span class="nc" id="L55">				fis.close();</span>
+<span class="nc" id="L56">			} catch (IOException e) {</span>
+<span class="nc" id="L57">				e.printStackTrace();</span>
+<span class="nc" id="L58">			} // closes the file reader</span>
+        }
+<span class="nc" id="L60">    }</span>
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
